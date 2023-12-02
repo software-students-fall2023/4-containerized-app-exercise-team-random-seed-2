@@ -37,7 +37,8 @@ def transcribe_audio(wave_output_filename):
 def save_transcription_to_mongodb(transcription, filename):
     """Save the transcription to MongoDB."""
     try:
-        client = MongoClient("mongodb://host.docker.internal:27017/")
+        #client = MongoClient("mongodb://host.docker.internal:27017/")
+        client = MongoClient("mongodb://localhost:27017/")
         db = client.transcription_database
         collection = db.transcriptions
         transcription_document = {
@@ -65,6 +66,7 @@ def process_audio_files(directory):
 def main():
     """Process audio files in the directory."""
     audio_files_dir = "audio_files"
+    #audio_files_dir = "../audio_files"
     process_audio_files(audio_files_dir)
 
 
