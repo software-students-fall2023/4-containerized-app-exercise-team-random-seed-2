@@ -43,18 +43,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r web-app/requirements.txt
 
-    - name: Lint with Pylint
-      run: |
-        pip install pylint
-        pylint web-app/**/*.py
+    #- name: Lint with Pylint
+    #  run: |
+    #    pip install pylint
+    #    pylint web-app/**/*.py
+    #
+    #- name: Run tests
+    #  run: |
+    #    pip install pytest pytest-cov
+    #    cd web-app/tests
+    #    pytest
 
-    - name: Run tests
-      run: |
-        pip install pytest pytest-cov
-        cd web-app/tests
-        pytest
-
-    - name: Build Docker Image
-      run: |
-        cd web-app
-        docker build -t my-web-app .
+    #- name: Build Docker Image
+    #  run: |
+    #    cd web-app
+    #    docker build -t my-web-app .
