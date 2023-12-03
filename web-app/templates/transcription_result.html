@@ -28,7 +28,13 @@
         <div class="transcription">
             <h2>Filename: {{ transcription.filename }}</h2>
             <p>Transcript: "{{ transcription.transcript }}"</p>
-            <p>Transcribed at: {{ transcription.timestamp }}</p>
+            <p>Transcribed at: {{ transcription.timestamp }}</p>            
+            {% if additional %}
+            <p>File Path: {{ additional.file_path }}</p>
+            {% else %}
+                <p>Additional data not available.</p>
+            {% endif %}
+        </div>
         </div>
     </div>
     <nav>

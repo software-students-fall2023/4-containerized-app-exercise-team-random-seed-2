@@ -9,8 +9,9 @@ Build a containerized app that uses machine learning. See [instructions](./instr
 [Henry Wang](https://github.com/fishlesswater) <br>
 
 ## Set Up Instructions 
-With Docker running, 
-1. Within the project directory, run 
+1. The .env file for our machine-learning-client will be posted in our discord channel, randomseed2. Please download this file, then input into the project directory in the machine-learning-client sub-directory. Make sure to rename the file to .env if necessary. 
+
+2. With Docker running, run 
 ```
 docker-compose build
 ```
@@ -18,7 +19,7 @@ docker-compose build
 ```
 docker-compose up
 ```
-3. To try out the web-app and machine learning client functionalities, download the [sample audio](machine-learning-client/audio_files/audio1.wav). 
+3. To try out the web-app and machine learning client functionalities, download a [sample audio](machine-learning-client/audio_files/audio1.wav). 
 
 4. Click on the Upload Audio and Transcribe button to navigate to the Upload and Transcribe page. 
 

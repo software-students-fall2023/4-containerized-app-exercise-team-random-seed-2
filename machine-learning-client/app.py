@@ -39,7 +39,7 @@ def transcribe():
 def transcribe_audio(file):
     try:
         response = speech_to_text.recognize(
-            audio=file.stream,  # using file.stream instead of file
+            audio=file.stream, 
             content_type='audio/wav'
         ).get_result()
         return response
