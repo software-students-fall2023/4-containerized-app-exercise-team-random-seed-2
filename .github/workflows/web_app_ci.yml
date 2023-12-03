@@ -40,6 +40,6 @@ jobs:
     - name: Run tests
       run: |
         pip install pytest pytest-cov
-        cd web-app/tests
-        pytest
+        cd web-app
+        python -m pytest tests
 
