@@ -48,11 +48,11 @@ jobs:
     #    pip install pylint
     #    pylint web-app/**/*.py
     #
-    #- name: Run tests
-    #  run: |
-    #    pip install pytest pytest-cov
-    #    cd web-app/tests
-    #    pytest
+    - name: Run tests
+      run: |
+        pip install pytest pytest-cov
+        cd web-app/tests
+        pytest
 
     #- name: Build Docker Image
     #  run: |
