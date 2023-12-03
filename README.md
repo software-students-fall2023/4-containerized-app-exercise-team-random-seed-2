@@ -4,7 +4,7 @@
 [![Web App CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/web_app_ci.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/web_app_ci.yml)
 
 <br>
-Our project provides a video transcription tool, where users can input voice messages in our webapp, and they are transcripted to text by using IBM Watson.
+This containerized application seamlessly integrates a MongoDB database, a Python Flask web app, and a machine learning client to offer efficient audio transcription services. Users upload .wav audio files to the web app, which are then transcribed into text using IBM Watson Speech to Text through the machine learning client. The transcribed data and file information is stored in MongoDB and displayed back to the user, demonstrating a robust and interactive audio-to-text conversion process.
 
 ## Group Members 
 [Lara Kim](https://github.com/larahynkim) <br>
