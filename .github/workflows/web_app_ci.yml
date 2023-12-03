@@ -54,7 +54,3 @@ jobs:
         cd web-app/tests
         pytest
 
-    #- name: Build Docker Image
-    #  run: |
-    #    cd web-app
-    #    docker build -t my-web-app .
