@@ -1,6 +1,8 @@
 # Containerized App Exercise
+[![Machine Learning Client CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/ml_client_ci.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/ml_client_ci.yml)
 
-Build a containerized app that uses machine learning. See [instructions](./instructions.md) for details.
+[![Web App CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/web_app_ci.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/web_app_ci.yml)
+
 <br>
 Our project provides a video transcription tool, where users can input voice messages in our webapp, and they are transcripted to text by using IBM Watson.
 
@@ -33,6 +35,3 @@ docker-compose up
 
 Please note that the machine learning client only accepts audios of .wav files. 
 
-## Build Status
-[![Web App CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/blob/main/.github/workflows/web_app_ci.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/blob/main/.github/workflows/web_app_ci.yml)
-[![ML Client CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/blob/main/.github/workflows/ml_client_ci.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/blob/main/.github/workflows/ml_client_ci.yml)
