@@ -1,74 +1,75 @@
-"""Transcribes audio files using the IBM Watson library and saving transcriptions to MongoDB."""
-
-import json
 import os
+import io
 from datetime import datetime
+from flask import Flask, request, jsonify
 from ibm_watson import SpeechToTextV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
+app = Flask(__name__)
 load_dotenv()
 
 IBM_API_URL = os.getenv("API_BASE_URL")
 IBM_API_KEY = os.getenv("IBM_API_KEY")
-
 authenticator = IAMAuthenticator(IBM_API_KEY)
 speech_to_text = SpeechToTextV1(authenticator=authenticator)
 speech_to_text.set_service_url(IBM_API_URL)
 
+@app.route('/transcribe', methods=['POST'])
+def transcribe():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
 
-def transcribe_audio(wave_output_filename):
-    """Transcribe the audio file using IBM Watson Speech to Text."""
     try:
-        with open(wave_output_filename, "rb") as audio_file:
-            response = speech_to_text.recognize(
-                audio=audio_file, content_type="audio/wav", model="en-US_BroadbandModel"
-            ).get_result()
-            return json.dumps(response, indent=2)
-    except FileNotFoundError as e:
-        print(f"File not found error: {e}")
-        return None
-    except json.JSONDecodeError as e:
-        print(f"JSON decode error: {e}")
+        # Directly using the uploaded file for transcription
+        transcription_result = transcribe_audio(file)
+        if transcription_result:
+            transcription_document = save_transcription_to_mongodb(transcription_result, file.filename)
+            return jsonify({'transcription': transcription_document}), 200
+        else:
+            return jsonify({'error': 'Transcription failed'}), 500
+    except Exception as e:
+        app.logger.error(f"Error during transcription process: {type(e).__name__}: {str(e)}")
+        return jsonify({'error': f'Error processing audio: {type(e).__name__}: {str(e)}'}), 500
+
+def transcribe_audio(file):
+    try:
+        response = speech_to_text.recognize(
+            audio=file.stream,  # using file.stream instead of file
+            content_type='audio/wav'
+        ).get_result()
+        return response
+    except Exception as e:
+        app.logger.error(f"Error during IBM Watson transcription: {type(e).__name__}: {str(e)}")
         return None
 
 
 def save_transcription_to_mongodb(transcription, filename):
-    """Save the transcription to MongoDB."""
+    client = MongoClient("mongodb://mongodb:27017/")
+    db = client.transcription_database
+    collection = db.transcriptions
     try:
-        #client = MongoClient("mongodb://host.docker.internal:27017/")
-        client = MongoClient("mongodb://localhost:27017/")
-        db = client.transcription_database
-        collection = db.transcriptions
+        transcription_text = "No transcript available."
+        if transcription.get('results', []) and transcription['results'][0].get('alternatives', []):
+            transcription_text = transcription['results'][0]['alternatives'][0]['transcript']
+        
+        # Updated the structure to simplify the document
         transcription_document = {
-            "text": transcription,
-            "timestamp": datetime.now(),
-            "metadata": {"duration": 5, "source": "file", "filename": filename},
+            "filename": filename,
+            "transcript": transcription_text,
+            "timestamp": datetime.now()
         }
         collection.insert_one(transcription_document)
-        print(f"Transcription of {filename} saved to MongoDB.")
-    finally:
-        client.close()
-
-
-def process_audio_files(directory):
-    """Process all WAV audio files in the given directory."""
-    for filename in os.listdir(directory):
-        if filename.endswith(".wav"):
-            file_path = os.path.join(directory, filename)
-            transcription_result = transcribe_audio(file_path)
-            if transcription_result:
-                print(f"Transcription of {filename}: \n{transcription_result}")
-                save_transcription_to_mongodb(transcription_result, filename)
-
-
-def main():
-    """Process audio files in the directory."""
-    audio_files_dir = "audio_files"
-    #audio_files_dir = "../audio_files"
-    process_audio_files(audio_files_dir)
+        transcription_document['_id'] = str(result.inserted_id)
+        return transcription_document
+    except Exception as e:
+        app.logger.error(f"Error saving transcription to MongoDB: {type(e).__name__}: {str(e)}")
+        return None
 
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True, host='0.0.0.0', port=4000)

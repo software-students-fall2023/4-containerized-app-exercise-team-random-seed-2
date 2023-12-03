@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+
+  ml-client:
+    build:
+      context: ./machine-learning-client
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongodb
+
+  web-app:
+    build:
+      context: ./web-app
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongodb
+      - ml-client
+
+volumes:
+  mongodb-data:
