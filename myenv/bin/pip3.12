@@ -1,4 +1,4 @@
-#!/Users/lara/Desktop/4-containerized-app-exercise-team-random-seed-2/myenv/bin/python3.12
+#!/Users/lara/Downloads/4-containerized-app-exercise-team-random-seed-2/myenv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

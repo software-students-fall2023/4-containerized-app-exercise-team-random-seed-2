@@ -32,16 +32,18 @@
 </head>
 <body>
     <h1>Transcribed Audio Files</h1>
+    <nav>
+        <a href="/upload_transcribe">Upload Audio and Transcribe</a>
+    </nav>
     <div>
         {% for transcription in transcriptions %}
-        <div class = "transcription-container">
-            <h2>File: {{ transcription.metadata.filename }}</h2>
-            
-            <p class = "transcript">Transcript: "{{ transcription.text.results[0].alternatives[0].transcript }}"</p>
-            <p class = "confidence">Confidence: {{ transcription.text.results[0].alternatives[0].confidence }}</p>
-            <p class = "timestamp">Transcribed at: {{ transcription.timestamp }}</p>
+        <div class="transcription-container">
+            <h2>File: {{ transcription.filename }}</h2>
+            <p class="transcript">Transcript: "{{ transcription.transcript }}"</p>
+            <p class="timestamp">Transcribed at: {{ transcription.timestamp }}</p>
         </div>
         {% endfor %}
+    </div>
     </div>
 </body>
 </html>
