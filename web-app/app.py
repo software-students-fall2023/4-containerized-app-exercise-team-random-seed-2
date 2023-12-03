@@ -22,9 +22,9 @@ def index():
     return render_template('index.html', transcriptions=transcriptions_list)
 
 
-@app.route('/record_audio')
-def record_audio():
-    return render_template('record_audio.html')
+#@app.route('/record_audio')
+#def record_audio():
+   # return render_template('record_audio.html')
 
 @app.route('/upload_transcribe', methods=['GET', 'POST'])
 def upload_transcribe():
@@ -33,7 +33,6 @@ def upload_transcribe():
         if file:
             response = send_file_to_ml_client(file)
             if response.status_code == 200:
-                # Fetch the latest transcription from the database
                 latest_transcription = collection.find_one(sort=[("timestamp", -1)])
                 return render_template('transcription_result.html', transcription=latest_transcription)
             else:
@@ -41,6 +40,7 @@ def upload_transcribe():
         else:
             flash('No file selected')
     return render_template('upload_transcribe.html')
+
 
 def send_file_to_ml_client(file):
     temp_filename = secure_filename(file.filename)
