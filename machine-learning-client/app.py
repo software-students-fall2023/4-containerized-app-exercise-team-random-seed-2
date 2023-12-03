@@ -57,14 +57,13 @@ def save_transcription_to_mongodb(transcription, filename):
         if transcription.get('results', []) and transcription['results'][0].get('alternatives', []):
             transcription_text = transcription['results'][0]['alternatives'][0]['transcript']
         
-        # Updated the structure to simplify the document
         transcription_document = {
             "filename": filename,
             "transcript": transcription_text,
             "timestamp": datetime.now()
         }
-        collection.insert_one(transcription_document)
-        transcription_document['_id'] = str(result.inserted_id)
+        insert_result = collection.insert_one(transcription_document)
+        transcription_document['_id'] = str(insert_result.inserted_id)
         return transcription_document
     except Exception as e:
         app.logger.error(f"Error saving transcription to MongoDB: {type(e).__name__}: {str(e)}")
