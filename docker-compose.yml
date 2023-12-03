@@ -1,17 +1,1 @@
-version: '3.8'
-services:
-  web-app:
-    image: myapp-web-app:latest
-    ports:
-      - "80:5000"
-    depends_on:
-      - mongodb
-  ml-client:
-    image: myapp-ml-client:latest
-  mongodb:
-    image: mongo
-    volumes:
-      - mongodb_data_container:/data/db
 
-volumes:
-  mongodb_data_container:
