@@ -1,6 +1,8 @@
 # Containerized App Exercise
 
 Build a containerized app that uses machine learning. See [instructions](./instructions.md) for details.
+<br>
+Our project provides a video transcription tool, where users can input voice messages in our webapp, and they are transcripted to text by using IBM Watson.
 
 ## Group Members 
 [Lara Kim](https://github.com/larahynkim) <br>
@@ -29,3 +31,7 @@ docker-compose up
 7. To go back to the Transcript Log home page, click on the Transcript Log link. 
 
 Please note that the machine learning client only accepts audios of .wav files. 
+
+## Build Status
+[![Web App CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/blob/main/.github/workflows/web_app_ci.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/blob/main/.github/workflows/web_app_ci.yml)
+[![ML Client CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/blob/main/.github/workflows/ml_client_ci.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/blob/main/.github/workflows/ml_client_ci.yml)
