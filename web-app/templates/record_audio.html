@@ -19,14 +19,13 @@
 
         function stopRecording() {
             mediaRecorder.stop();
-            mediaRecorder.onstop = async () => {
-                const audioBlob = new Blob(audioChunks, { 'type' : 'audio/wav' });
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks);
                 const audioUrl = URL.createObjectURL(audioBlob);
                 const downloadLink = document.createElement('a');
                 downloadLink.href = audioUrl;
                 downloadLink.download = 'recorded_audio.wav';
                 downloadLink.click();
-                audioChunks = [];
             };
         }
     </script>
