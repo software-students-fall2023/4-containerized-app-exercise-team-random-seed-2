@@ -6,6 +6,7 @@ from werkzeug.datastructures import FileStorage
 from io import BytesIO
 from datetime import datetime  # Add this import for datetime
 from app import app as flask_app, index, upload_transcribe, send_file_to_ml_client, save_additional_data_to_mongodb
+from pymongo import errors as pymongo_errors
 
 @pytest.fixture
 def app():
@@ -51,3 +52,9 @@ def test_save_additional_data_to_mongodb():
         args, kwargs = mock_insert_one.call_args
         # Check the first (and in this case, only) positional argument
         assert args[0]['file_name'] == 'test.wav'  # Corrected access to the argument
+
+def test_save_additional_data_to_mongodb_exception():
+    with patch('app.collection.insert_one', side_effect=pymongo_errors.PyMongoError("Error")):
+        save_additional_data_to_mongodb('test.wav')
+        # You might also want to assert that the logger was called
+
