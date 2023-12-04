@@ -41,8 +41,9 @@ def upload_transcribe():
                 latest_transcription = collection.find_one(sort=[("timestamp", -1)])
                 additional_data = collection.find_one({"file_name": secure_filename(file.filename)},
                                                        sort=[("storage_time", -1)])
-                return render_template('transcription_result.html',
-                                       transcription=latest_transcription, additional=additional_data)
+    return render_template('transcription_result.html',
+                            transcription=latest_transcription, 
+                            additional=additional_data)
 
 
 
@@ -61,7 +62,7 @@ def send_file_to_ml_client(file):
 
 def save_additional_data_to_mongodb(file_name):
     """Save additional data to the MongoDB database."""
-    file_path = os.path.join(os.getcwd(), file_name) 
+    file_path = os.path.join(os.getcwd(), file_name)
     try:
         additional_data = {
             "file_name": file_name,
