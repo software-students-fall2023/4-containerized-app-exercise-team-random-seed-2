@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from datetime import datetime
+import os
+from flask import Flask, render_template, request , flash
 import requests
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
-import os
-import json
-from datetime import datetime
+
+
+
 
 
 
@@ -43,6 +45,7 @@ def upload_transcribe():
 
 
 def send_file_to_ml_client(file):
+    #send files to ml client
     temp_filename = secure_filename(file.filename)
     file.save(temp_filename)
     save_additional_data_to_mongodb(temp_filename)
