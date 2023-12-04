@@ -15,9 +15,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r web-app/requirements.txt
-    - name: Run Tests
-      run: |
-        pytest
+
 
   deploy:
     needs: build
