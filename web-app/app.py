@@ -8,10 +8,6 @@ from pymongo import errors as pymongo_errors
 from werkzeug.utils import secure_filename
 
 
-
-
-
-
 app = Flask(__name__)
 app.secret_key = 'secret_key'
 
@@ -19,6 +15,10 @@ app.secret_key = 'secret_key'
 client = MongoClient("mongodb://mongodb:27017/")
 db = client.transcription_database
 collection = db.transcriptions
+
+def allowed_file(filename):
+    """Check if the file is a .wav file."""
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() == 'wav'
 
 @app.route('/')
 def index():
@@ -35,17 +35,21 @@ def upload_transcribe():
     """Handle the transcription upload and processing."""
     if request.method == 'POST':
         file = request.files.get('audiofile')
-        if file:
+        if file and allowed_file(file.filename):
             response = send_file_to_ml_client(file)
             if response.status_code == 200:
                 latest_transcription = collection.find_one(sort=[("timestamp", -1)])
                 additional_data = collection.find_one({"file_name": secure_filename(file.filename)},
                                                        sort=[("storage_time", -1)])
-    return render_template('transcription_result.html',
-                            transcription=latest_transcription,
-                            additional=additional_data)
+                return render_template('transcription_result.html',
+                                       transcription=latest_transcription,
+                                       additional=additional_data)
+            else:
+                flash('Error processing the file. Please try again.', 'error')
+        else:
+            flash('Please upload a .wav audio file.', 'error')
 
-
+    return render_template('upload_transcribe.html')
 
 def send_file_to_ml_client(file):
     """Send file to the machine learning client for processing."""
