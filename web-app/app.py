@@ -1,11 +1,12 @@
 """Flask application for audio transcription."""
+# pylint: disable=import-error
 from datetime import datetime
 import os
-from flask import Flask, render_template, request , flash
+from flask import Flask, render_template, request , flash   # pylint: disable=import-error
 import requests
-from pymongo import MongoClient
+from pymongo import MongoClient 
 from pymongo import errors as pymongo_errors
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename  # pylint: disable=import-error
 
 
 app = Flask(__name__)
