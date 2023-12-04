@@ -42,7 +42,7 @@ def upload_transcribe():
                 additional_data = collection.find_one({"file_name": secure_filename(file.filename)},
                                                        sort=[("storage_time", -1)])
     return render_template('transcription_result.html',
-                            transcription=latest_transcription, 
+                            transcription=latest_transcription,
                             additional=additional_data)
 
 
