@@ -1,3 +1,4 @@
+"""Flask application for audio transcription."""
 from datetime import datetime
 import os
 from flask import Flask, render_template, request , flash
@@ -20,7 +21,9 @@ collection = db.transcriptions
 
 @app.route('/')
 def index():
-    transcriptions_list = list(collection.find({"transcript": {"$exists": True}}).sort("timestamp", -1))
+    """Display the main page with a list of transcriptions."""
+    transcriptions_list = list(
+        collection.find({"transcript": {"$exists": True}}).sort("timestamp", -1))
     return render_template('index.html', transcriptions=transcriptions_list)
 
 #@app.route('/record_audio')
@@ -29,6 +32,7 @@ def index():
 
 @app.route('/upload_transcribe', methods=['GET', 'POST'])
 def upload_transcribe():
+    """Handle the transcription upload and processing."""
     if request.method == 'POST':
         file = request.files.get('audiofile')
         if file:
@@ -45,16 +49,20 @@ def upload_transcribe():
 
 
 def send_file_to_ml_client(file):
-    #send files to ml client
+    """Send file to the machine learning client for processing."""
     temp_filename = secure_filename(file.filename)
     file.save(temp_filename)
     save_additional_data_to_mongodb(temp_filename)
     with open(temp_filename, 'rb') as f:
-        response = requests.post('http://ml-client:4000/transcribe', files={'file': f})
+        response = requests.post(
+            'http://ml-client:4000/transcribe', 
+            files={'file': f},
+            timeout=20)
     os.remove(temp_filename) 
     return response
 
 def save_additional_data_to_mongodb(file_name):
+    """Save additional data to the MongoDB database."""
     file_path = os.path.join(os.getcwd(), file_name) 
     try:
         additional_data = {
