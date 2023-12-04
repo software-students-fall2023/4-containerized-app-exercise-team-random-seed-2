@@ -6,12 +6,20 @@ from unittest.mock import patch, MagicMock
 from werkzeug.datastructures import FileStorage
 from io import BytesIO
 from datetime import datetime  # Add this import for datetime
-from app import app as flask_app, allowed_file, index, upload_transcribe, send_file_to_ml_client, save_additional_data_to_mongodb
+from app import (
+    app as flask_app,
+    allowed_file,
+    index,
+    upload_transcribe,
+    send_file_to_ml_client,
+    save_additional_data_to_mongodb,
+)
 from pymongo import errors as pymongo_errors
+
 
 @pytest.fixture
 def app():
-    flask_app.config['TESTING'] = True
+    flask_app.config["TESTING"] = True
     yield flask_app
 
 
@@ -64,9 +72,12 @@ def test_save_additional_data_to_mongodb():
         # Check the first (and in this case, only) positional argument
         assert args[0]["file_name"] == "test.wav"  # Corrected access to the argument
 
+
 def test_save_additional_data_to_mongodb_exception():
-    with patch('app.collection.insert_one', side_effect=pymongo_errors.PyMongoError("Error")):
-        save_additional_data_to_mongodb('test.wav')
+    with patch(
+        "app.collection.insert_one", side_effect=pymongo_errors.PyMongoError("Error")
+    ):
+        save_additional_data_to_mongodb("test.wav")
 
 
 def test_allowed_file():
@@ -75,7 +86,8 @@ def test_allowed_file():
 
 def test_upload_transcribe_invalid_file(client):
     data = {"audiofile": (BytesIO(b"fake audio data"), "test.mp3")}
-    response = client.post("/upload_transcribe", content_type="multipart/form-data", data=data)
+    response = client.post(
+        "/upload_transcribe", content_type="multipart/form-data", data=data
+    )
     assert response.status_code == 200
     assert b"Please upload a .wav audio file." in response.data
-
