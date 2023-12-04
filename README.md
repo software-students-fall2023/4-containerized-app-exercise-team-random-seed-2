@@ -33,7 +33,7 @@ docker-compose up
 
 7. To go back to the Transcript Log home page, click on the Transcript Log link. 
 
-Please note that the machine learning client only accepts audios of .wav files. 
+Please note that the machine learning client only accepts audios of .wav files. One way is to use [audacity](https://www.audacityteam.org/) to record a video message in wav format.
 
 ## Project 4 Taskboard 
 [Taskboard](https://github.com/orgs/software-students-fall2023/projects/92)
