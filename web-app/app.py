@@ -41,13 +41,9 @@ def upload_transcribe():
                 latest_transcription = collection.find_one(sort=[("timestamp", -1)])
                 additional_data = collection.find_one({"file_name": secure_filename(file.filename)},
                                                        sort=[("storage_time", -1)])
-                return render_template('transcription_result.html', 
+                return render_template('transcription_result.html',
                                        transcription=latest_transcription, additional=additional_data)
-            else:
-                flash('Transcription failed')
-        else:
-            flash('No file selected')
-    
+
 
 
 def send_file_to_ml_client(file):
@@ -70,7 +66,7 @@ def save_additional_data_to_mongodb(file_name):
         additional_data = {
             "file_name": file_name,
             "file_path": file_path,
-            "storage_time": datetime.now()        
+            "storage_time": datetime.now()   
         }
         collection.insert_one(additional_data)
     except pymongo_errors.PyMongoError as e:
