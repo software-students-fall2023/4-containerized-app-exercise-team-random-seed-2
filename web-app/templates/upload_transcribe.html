@@ -5,10 +5,19 @@
 </head>
 <body>
     <h1>Upload Audio File for Transcription</h1>
+    <p>Please upload a .wav audio file.</p>
     <a href="/">Transcript Logs</a>
     <form action="/upload_transcribe" method="post" enctype="multipart/form-data">
         <input type="file" name="audiofile">
         <input type="submit" value="Upload and Transcribe">
     </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </body>
 </html>
