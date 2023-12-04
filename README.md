@@ -44,7 +44,7 @@ then,
 ```
 pip install pytest
 ```
-2.  Finally to run tests, type:
+2.  Finally to run tests, change directories into either machine-learning-client or web-app and type:
 ```
 python -m pytest tests    
 ```
