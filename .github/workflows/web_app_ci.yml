@@ -1,17 +1,6 @@
 name: Web App CI
 
-on:
-  push:
-    paths:
-      - 'web-app/**'
-    branches:
-      - '**'
-  pull_request:
-    paths:
-      - 'web-app/**'
-    branches:
-      - '**'
-
+on: [push, pull_request]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -48,13 +37,9 @@ jobs:
     #    pip install pylint
     #    pylint web-app/**/*.py
     #
-    #- name: Run tests
-    #  run: |
-    #    pip install pytest pytest-cov
-    #    cd web-app/tests
-    #    pytest
+    - name: Run tests
+      run: |
+        pip install pytest pytest-cov
+        cd web-app
+        python -m pytest tests
 
-    #- name: Build Docker Image
-    #  run: |
-    #    cd web-app
-    #    docker build -t my-web-app .
