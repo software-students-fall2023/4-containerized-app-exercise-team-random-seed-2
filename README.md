@@ -23,7 +23,7 @@ docker-compose build
 ```
 docker-compose up
 ```
-3. To try out the web-app and machine learning client functionalities, download a [sample audio](machine-learning-client/audio_files/audio1.wav). 
+3. Go to your browser, type "localhost:5001", and to try out the web-app and machine learning client functionalities, download a [sample audio](machine-learning-client/audio_files/audio1.wav). 
 
 4. Click on the Upload Audio and Transcribe button to navigate to the Upload and Transcribe page. 
 
@@ -34,6 +34,30 @@ docker-compose up
 7. To go back to the Transcript Log home page, click on the Transcript Log link. 
 
 Please note that the machine learning client only accepts audios of .wav files. One way is to use [audacity](https://www.audacityteam.org/) to record a video message in wav format.
+
+## Testing
+1. Remember to first:
+```
+pip install -r requirements.txt
+```
+then,
+```
+pip install pytest
+```
+2.  Finally to run tests, type:
+```
+python -m pytest tests    
+```
+3. To check for coverage, 
+```
+python -m pip install coverage  
+```
+```
+python -m coverage run -m pytest tests
+```
+```
+python -m coverage report
+```
 
 ## Project 4 Taskboard 
 [Taskboard](https://github.com/orgs/software-students-fall2023/projects/92)
