@@ -41,8 +41,7 @@ jobs:
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
+  
     steps:
       - uses: actions/checkout@v2
 
