@@ -1,7 +1,7 @@
 # Containerized App Exercise
 [![Machine Learning Client CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/ml_client_ci.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/ml_client_ci.yml)
 
-[![Web App CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/web_app_ci.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/web_app_ci.yml)
+[![Web App CI/CD](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/web_app_ci_cd.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-random-seed-2/actions/workflows/web_app_ci_cd.yml)
 
 <br>
 This containerized application seamlessly integrates a MongoDB database, a Python Flask web app, and a machine learning client to offer efficient audio transcription services. Users upload .wav audio files to the web app, which are then transcribed into text using IBM Watson Speech to Text through the machine learning client. The transcribed data and file information is stored in MongoDB and displayed back to the user, demonstrating a robust and interactive audio-to-text conversion process.
