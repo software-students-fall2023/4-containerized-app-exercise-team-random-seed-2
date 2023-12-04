@@ -48,6 +48,5 @@ jobs:
 
       - name: Deploy to Production
         run: |
-          cd web-app
           docker-compose build
           docker-compose up -d
