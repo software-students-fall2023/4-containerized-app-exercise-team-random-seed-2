@@ -1,10 +1,6 @@
 name: Web App CI/CD
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   build-and-test:
