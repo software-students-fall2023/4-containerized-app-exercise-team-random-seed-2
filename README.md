@@ -58,6 +58,8 @@ python -m coverage run -m pytest tests
 ```
 python -m coverage report
 ```
+## Digital Ocean deployment
+go to [here](http://162.243.167.105:5001/) to see our project based on digital ocean!
 
 ## Project 4 Taskboard 
 [Taskboard](https://github.com/orgs/software-students-fall2023/projects/92)
