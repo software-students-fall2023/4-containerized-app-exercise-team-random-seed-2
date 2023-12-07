@@ -2,6 +2,7 @@ version: '3.8'
 services:
   mongodb:
     image: mongo
+    mem_limit: 500m
     ports:
       - "27017:27017"
     volumes:
