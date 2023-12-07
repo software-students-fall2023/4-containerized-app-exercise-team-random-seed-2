@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transcription Results</title>
+    <style>
+        .transcription-container {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .transcription-container h2 {
+            color: #007bff;
+        }
+
+        .transcript {
+            font-style: italic;
+            color: #555;
+        }
+
+        .confidence, .timestamp {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Transcribed Audio Files</h1>
+    <nav>
+        <a href="/upload_transcribe">Upload Audio and Transcribe</a>
+    </nav>
+    <div>
+        {% for transcription in transcriptions %}
+        <div class="transcription-container">
+            <h2>File: {{ transcription.filename }}</h2>
+            <p class="transcript">Transcript: "{{ transcription.transcript }}"</p>
+            <p class="timestamp">Transcribed at: {{ transcription.timestamp }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+</body>
+</html>
+
+
